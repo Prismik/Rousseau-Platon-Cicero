@@ -1,0 +1,41 @@
+.playfield {
+	margin:0;
+	padding: 0;
+}
+.score {
+	background-color: orange;
+	height: 64px;
+}
+.other {
+	background-color: #EEE;
+	height: 128px;
+}
+.fight {
+	height: 200px;
+}
+.self {
+	background-color: #EEE;
+	height: 128px;
+}
+.chat {
+	float: left;
+}
+.chat textarea {
+	resize: none;
+}
+.options {
+	float: left;
+}
+
+button.weapon {
+	outline:none; 
+	background-color: #FFF;
+  height: 100px;
+  width: 100px;
+  border-radius: 100%;
+  border: solid 1px #AAA;
+}
+
+button.weapon:hover {
+	background-color: #EEE
+}	

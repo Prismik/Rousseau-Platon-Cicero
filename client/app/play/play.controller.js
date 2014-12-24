@@ -1,27 +1,27 @@
 'use strict';
 
 angular.module('rousseauPlatoCiceroApp')
-  .controller('PlayCtrl', ['$scope', 'Player', 'socket', function ($scope, Player, socket) {
+  .controller('PlayCtrl', ['$scope', '$http', 'Player', 'socket', function ($scope, $http, Player, socket) {
     $scope.playerOne = new Player('Player 1', 1);
     $scope.playerTwo = new Player('Player 2', 2);
-    socket.syncPlayers($scope.playerOne, $scope.playerTwo);
+    socket.syncPlayers(function(player) {
+    	console.log(player)
+    	if (player.index == 1) {
+	    	$scope.playerOne.refresh(player);
+	    }
+	    else {
+	    	$scope.playerTwo.refresh(player);
+	    }
+    });
     $scope.select = function(weapon) {
     	$scope.playerOne.select(weapon);
-    	socket.io.emit('action', $scope.playerOne);
+    	$http.post('/api/players', $scope.playerOne);
     };
     $scope.confirm = function() {
     	$scope.playerOne.confirm(true);
-    	socket.io.emit('action', $scope.playerOne);
+    	$http.post('/api/players', $scope.playerOne);
     };
 
-    socket.io.on('action', function (item) {
-      if (item.index === 1) {
-      	$scope.playerOne = item;
-      }
-      else {
-      	$scope.playerTwo = item;
-      }
-    });
     $scope.$on('$destroy', function () {
       socket.unsyncPlayers();
     });

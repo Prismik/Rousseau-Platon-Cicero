@@ -18,12 +18,13 @@ angular.module('rousseauPlatoCiceroApp')
     return {
       io: socket,
 
-      syncPlayers: function(playerOne, playerTwo) {
-      	
+      syncPlayers: function(callback) {
+      	socket.on('action', function (item) {
+          callback(item)
+        });
       },
 
       unsyncPlayers : function () {
-      	socket.removeAllListeners('action');
       	socket.removeAllListeners('action');
       }
     };

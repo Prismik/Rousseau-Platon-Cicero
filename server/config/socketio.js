@@ -18,7 +18,7 @@ function onConnect(socket) {
   });
 
   // Insert sockets below
-  require('../api/player/player.socket').register(socket);
+  require('../api/player/player.controller').register(socket);
 }
 
 module.exports = function (socketio) {

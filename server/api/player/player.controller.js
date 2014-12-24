@@ -3,12 +3,22 @@
 var _ = require('lodash');
 var Player = require('./player.model');
 
+var socket = null;
+exports.register = function(io) {
+  socket = io;
+}
+
 // Get list of players
 exports.index = function(req, res) {
   Player.find(function (err, players) {
     if(err) { return handleError(res, err); }
     return res.json(200, players);
   });
+};
+
+// Get a single player
+exports.action = function(req, res) {
+  socket.emit('action', req.body);
 };
 
 // Get a single player

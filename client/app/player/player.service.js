@@ -10,7 +10,14 @@ angular.module('rousseauPlatoCiceroApp')
    		this.choiceConfirmed = false;
    		this.choiceSelected = false;
     }
-
+    Player.prototype.refresh = function(json) {
+    	this.index = json.index;
+   		this.score = json.score;
+   		this.name = json.name;
+   		this.weapon = json.weapon;
+   		this.choiceConfirmed = json.choiceConfirmed;
+   		this.choiceSelected = json.choiceSelected;
+    }
     Player.prototype.score = function() { return this.score; };
     Player.prototype.name = function() { return this.name; };
     Player.prototype.index = function() { return this.index; };

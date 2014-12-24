@@ -6,22 +6,31 @@
 	background-color: orange;
 	height: 64px;
 }
-.other {
-	background-color: #EEE;
-	height: 128px;
+.selfScore, .vs, .otherScore {
+	float: left;
+	margin-right: 64px;
+	margin-top: 16px;
 }
 .fight {
-	height: 200px;
+	height: 328px;
 }
 .self {
 	background-color: #EEE;
 	height: 128px;
+}
+.bottom {
+	height: 118px;
+	width: 100%;
 }
 .chat {
 	float: left;
 }
 .chat textarea {
 	resize: none;
+	outline: none;
+	background-color: black;
+	opacity: 0.3;
+	color: white;
 }
 .options {
 	float: left;

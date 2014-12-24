@@ -3,14 +3,16 @@
 angular.module('socketMock', [])
   .factory('socket', function() {
     return {
-      socket: {
+      io: {
         connect: function() {},
         on: function() {},
         emit: function() {},
         receive: function() {}
       },
 
+      syncPlayers: function() {},
       syncUpdates: function() {},
+      unsyncPlayers: function() {},
       unsyncUpdates: function() {}
     };
   });

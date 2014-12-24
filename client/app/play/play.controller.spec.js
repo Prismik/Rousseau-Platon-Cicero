@@ -4,6 +4,7 @@ describe('Controller: PlayCtrl', function () {
 
   // load the controller's module
   beforeEach(module('rousseauPlatoCiceroApp'));
+  beforeEach(module('socketMock'));
 
   var PlayCtrl, scope;
 

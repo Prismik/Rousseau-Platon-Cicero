@@ -16,8 +16,18 @@ angular.module('rousseauPlatoCiceroApp')
     });
 
     return {
-      socket: socket,
+      io: socket,
 
+      syncPlayers: function(playerOne, playerTwo) {
+      	socket.on('action', function (item) {
+          if (item.index === 1) {
+          	playerOne = item;
+          }
+          else {
+          	playerTwo = item;
+          }
+        });
+      },
       /**
        * Register listeners to sync an array with updates on a model
        *
@@ -61,6 +71,10 @@ angular.module('rousseauPlatoCiceroApp')
         });
       },
 
+      unsyncPlayers : function () {
+      	socket.removeAllListeners('action');
+      	socket.removeAllListeners('action');
+      },
       /**
        * Removes listeners for a models updates on the socket
        *

@@ -13,6 +13,15 @@ angular.module('rousseauPlatoCiceroApp')
     	$scope.playerOne.confirm(true);
     	socket.io.emit('action', $scope.playerOne);
     };
+
+    socket.io.on('action', function (item) {
+      if (item.index === 1) {
+      	$scope.playerOne = item;
+      }
+      else {
+      	$scope.playerTwo = item;
+      }
+    });
     $scope.$on('$destroy', function () {
       socket.unsyncPlayers();
     });

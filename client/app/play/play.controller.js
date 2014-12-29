@@ -2,17 +2,18 @@
 
 angular.module('rousseauPlatoCiceroApp')
   .controller('PlayCtrl', ['$scope', '$http', 'Player', 'socket', function ($scope, $http, Player, socket) {
-    $scope.playerOne = new Player('Player 1', 1);
-    $scope.playerTwo = new Player('Player 2', 2);
-    socket.syncPlayers(function(player) {
-    	console.log(player)
-    	if (player.index == 1) {
-	    	$scope.playerOne.refresh(player);
+    $scope.players = [];
+    socket.syncPlayers([function(player) {
+    	if (player.index == 0) {
+	    	$scope.players[0].refresh(player);
 	    }
 	    else {
-	    	$scope.playerTwo.refresh(player);
+	    	$scope.players[1].refresh(player);
 	    }
-    });
+    }, function() {
+    	 $scope.players.push(new Player('Player '+ $scope.players.length, $scope.players.length));
+    }]);
+
     $scope.select = function(weapon) {
     	$scope.playerOne.select(weapon);
     	$http.post('/api/players', $scope.playerOne);

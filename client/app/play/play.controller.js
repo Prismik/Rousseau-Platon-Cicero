@@ -5,13 +5,9 @@ angular.module('rousseauPlatoCiceroApp')
 		$scope.players = [];
 		$scope.inLobby = false;
 		$scope.con = {};
+		$scope.selfIndex = 0;
 		var refresh = function(player) {
-			if (player.index == 0) {
-				$scope.players[0].refresh(player);
-			}
-			else {
-				$scope.players[1].refresh(player);
-			}
+			$scope.players[player.index].refresh(player);
 		};
 		var connect = function(rep) {
 			if ($scope.players.length == 1)
@@ -21,8 +17,10 @@ angular.module('rousseauPlatoCiceroApp')
 			console.log($scope.players)
 		};
 		var connectExisting = function(rep) {
-			if ($scope.players.length == 1)
+			if ($scope.players.length == 1) { 
 				$scope.players.unshift(new Player(rep.name, $scope.players.length, rep.lobby));
+				$scope.selfIndex = 1;
+			}
 		};
 		socket.syncPlayers([refresh, connect, connectExisting]);
 		$scope.connect = function(info) {
@@ -30,12 +28,12 @@ angular.module('rousseauPlatoCiceroApp')
 			$scope.inLobby = true;
 		}
 		$scope.select = function(weapon) {
-			$scope.players[0].select(weapon);
-			socket.io.emit('action', $scope.players[0]);
+			$scope.players[$scope.selfIndex].select(weapon);
+			socket.io.emit('action', $scope.players[$scope.selfIndex]);
 		};
 		$scope.confirm = function() {
-			$scope.players[0].confirm(true);
-			socket.io.emit('action', $scope.players[0]);
+			$scope.players[$scope.selfIndex].confirm(true);
+			socket.io.emit('action', $scope.players[$scope.selfIndex]);
 		};
 
 		$scope.$on('$destroy', function () {

@@ -10,6 +10,10 @@
 	float: left;
 	margin-right: 64px;
 	margin-top: 16px;
+	height: 48px;
+}
+.selfScore {
+	font-weight: bold;
 }
 .fight {
 	height: 328px;

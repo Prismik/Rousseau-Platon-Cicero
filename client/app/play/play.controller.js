@@ -12,12 +12,20 @@ angular.module('rousseauPlatoCiceroApp')
 	    }
     };
     var connect = function(rep) {
+    	if ($scope.players.length == 1)
+    		socket.io.emit('existingPlayer', { name: $scope.players[0].name });
+
     	$scope.players.push(new Player(rep.name, $scope.players.length));
     	console.log($scope.players)
     };
-    socket.syncPlayers([refresh, connect]);
-    connect({ name: "Player " + $scope.players.length+1 })
-    socket.io.emit('roomConnect', { name: "Player " + $scope.players.length+1 });
+    var connectExisting = function(rep) {
+    	console.log(rep);
+    	if ($scope.players.length == 1)
+    		$scope.players.push(new Player(rep.name, $scope.players.length+1));
+    };
+    socket.syncPlayers([refresh, connect, connectExisting]);
+    //connect({ name: "Player " + $scope.players.length+1 })
+    socket.io.emit('roomConnect', { name: "Player " + ($scope.players.length+1).toString() });
     $scope.select = function(weapon) {
     	$scope.players[0].select(weapon);
     	socket.io.emit('action', $scope.players[0]);

@@ -11,19 +11,24 @@ function onDisconnect(socket) {
 }
 
 // When the user connects.. perform this
-function onConnect(socket) {
+function onConnect(socket, io) {
 	socket.join('room1');
+
   // When the client emits 'info', this listens and executes
   socket.on('info', function (data) {
     console.info('[%s] %s', socket.address, JSON.stringify(data, null, 2));
   });
 
   socket.on('roomConnect', function (name) {
-    socket.broadcast.emit('roomConnect', name);
+  	io.sockets.in('room1').emit('roomConnect', name);
+  });
+
+  socket.on('existingPlayer', function (name){
+  	socket.broadcast.to('room1').emit('connectExisting', name);
   });
 
   socket.on('action', function (item) {
-		socket.broadcast.emit('action', item);
+  	io.to('room1').emit('action', item);
   });
 }
 
@@ -58,7 +63,7 @@ module.exports = function (socketio) {
     });
 
     // Call onConnect.
-    onConnect(socket);
+    onConnect(socket, socketio);
     console.info('[%s] CONNECTED', socket.address);
   });
 };

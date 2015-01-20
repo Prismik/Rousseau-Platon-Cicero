@@ -24,9 +24,14 @@ angular.module('rousseauPlatoCiceroApp')
           callbacks[0](item);
         });
 
-        socket.on('roomConnect', function (name) {
-          callbacks[1](name);
+        socket.on('roomConnect', function (info) {
+          callbacks[1](info);
           console.log("Room Connect");
+        });
+
+        socket.on('connectExisting', function (info) {
+          callbacks[2](info);
+          console.log("Connect existing");
         });
       },
 

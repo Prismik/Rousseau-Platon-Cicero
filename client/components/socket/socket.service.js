@@ -20,11 +20,13 @@ angular.module('rousseauPlatoCiceroApp')
 
       syncPlayers: function(callbacks) {
       	socket.on('action', function (item) {
-          callback[0](item);
+      		console.log("Action");
+          callbacks[0](item);
         });
 
-        socket.on('roomConnect', function () {
-          callback[1]();
+        socket.on('roomConnect', function (name) {
+          callbacks[1](name);
+          console.log("Room Connect");
         });
       },
 

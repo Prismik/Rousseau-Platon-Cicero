@@ -12,14 +12,22 @@ function onDisconnect(socket) {
 
 // When the user connects.. perform this
 function onConnect(socket) {
+	socket.join('room1');
   // When the client emits 'info', this listens and executes
   socket.on('info', function (data) {
     console.info('[%s] %s', socket.address, JSON.stringify(data, null, 2));
   });
 
-  // Insert sockets below
-  require('../api/player/player.controller').register(socket);
+  socket.on('roomConnect', function (name) {
+    socket.broadcast.emit('roomConnect', name);
+  });
+
+  socket.on('action', function (item) {
+		socket.broadcast.emit('action', item);
+  });
 }
+
+var con = 8888;
 
 module.exports = function (socketio) {
   // socket.io (v1.x.x) is powered by debug.
@@ -36,12 +44,11 @@ module.exports = function (socketio) {
   //   secret: config.secrets.session,
   //   handshake: true
   // }));
-
   socketio.on('connection', function (socket) {
-    socket.address = socket.handshake.address !== null ?
-            socket.handshake.address.address + ':' + socket.handshake.address.port :
-            process.env.DOMAIN;
-
+    socket.address = socket.handshake.address;// !== null ?
+            //socket.handshake.address;// + ':' +  con.toString()/*socket.handshake.address.port*/ :
+     //       process.env.DOMAIN;
+   // con++;
     socket.connectedAt = new Date();
 
     // Call onDisconnect.

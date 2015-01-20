@@ -12,23 +12,23 @@ function onDisconnect(socket) {
 
 // When the user connects.. perform this
 function onConnect(socket, io) {
-	socket.join('room1');
 
   // When the client emits 'info', this listens and executes
   socket.on('info', function (data) {
     console.info('[%s] %s', socket.address, JSON.stringify(data, null, 2));
   });
 
-  socket.on('roomConnect', function (name) {
-  	io.sockets.in('room1').emit('roomConnect', name);
+  socket.on('roomConnect', function (info) {
+		socket.join(info.lobby);
+  	io.sockets.in(info.lobby).emit('roomConnect', info);
   });
 
-  socket.on('existingPlayer', function (name){
-  	socket.broadcast.to('room1').emit('connectExisting', name);
+  socket.on('existingPlayer', function (info){
+  	socket.broadcast.to(info.lobby).emit('connectExisting', info);
   });
 
   socket.on('action', function (item) {
-  	io.to('room1').emit('action', item);
+  	io.to(item.lobby).emit('action', item);
   });
 }
 

@@ -17,13 +17,15 @@
 	</div>
 	<div class="fight">
 		<div class="selfWeapon" ng-class="players[0].confirmed ? 'confirmed' : (players[0].selected ? 'selected' : 'waiting')"></div>
-		<div class="otherWeapon"></div>
+		<div class="otherWeapon">
+			<div ng-if="players[otherIndex].selected()">Weapon selected</div>
+		</div>
 	</div>
 	<div class="self">
-		<button ng-click="select(0)" class="weapon">Rock</button>
-		<button ng-click="select(1)" class="weapon">Paper</button>
-		<button ng-click="select(2)" class="weapon">Scissor</button>
-		<button ng-if="players[0].selected()" ng-click="confirm()" class="weapon">Confirm</button>
+		<button ng-click="select(1)" class="weapon">Rock</button>
+		<button ng-click="select(2)" class="weapon">Paper</button>
+		<button ng-click="select(3)" class="weapon">Scissor</button>
+		<button ng-if="players[selfIndex].selected()" ng-click="confirm()" class="weapon">Confirm</button>
 	</div>
 	<div class="bottom">
 		<div class="chat">

@@ -1,35 +1,48 @@
-<div ng-if="!inLobby" class="connect col-md-12">
+<div ng-if="!inLobby" class="connect">
+<div class="upper">
+	<h2>Join Room</h2>
+</div>
 	<label for="name">Name</label>
 	<input type="text" name="name" ng-model="con.name">
 	<label for="lobby">Lobby</label>
 	<input type="text" name="lobby" ng-model="con.lobby">
 	<button ng-click="connect(con)">Connect</button>
 </div>
+
 <div ng-if="inLobby" class="playfield col-md-12">
 	<div class="score">
-		<div class="score" ng-class="selfIndex == 0 ? 'selfScore' : 'otherScore'">
-			{{players[0].name}}: {{players[0].score}}
+		<div ng-class="selfIndex == 0 ? 'selfScore' : 'otherScore'">
+			<div class="points">{{players[0].score}}</div> 
+			<div class="name">{{players[0].name}}</div>
 		</div>
 		<div class="vs">VS</div>
-		<div class="score" ng-class="selfIndex == 1 ? 'selfScore' : 'otherScore'">
-			{{players[1].name}}: {{players[1].score}}
+		<div ng-class="selfIndex == 1 ? 'selfScore' : 'otherScore'">
+			<div class="points">{{players[1].score}}</div> 
+			<div class="name">{{players[1].name}}</div>
 		</div>
 	</div>
 	<div class="fight">
-		<div class="selfWeapon" ng-class="players[0].confirmed ? 'confirmed' : (players[0].selected ? 'selected' : 'waiting')"></div>
-		<div class="otherWeapon">
-			<div ng-if="players[otherIndex].selected()">Weapon selected</div>
+		<div ng-class="selfIndex == 0 ? 'selfWeapon' : 'otherWeapon'">
+			<div ng-if="players[selfIndex].selected()">Self weapon selected</div>
+		</div>
+		<div class="clashWeapon">
+			<button ng-click="select(1)" class="weapon rock"></button>
+			<button ng-click="select(2)" class="weapon paper"></button>
+			<button ng-click="select(3)" class="weapon scissor"></button>
+		</div>
+		<div ng-class="selfIndex == 1 ? 'selfWeapon' : 'otherWeapon'">
+			<div ng-if="players[otherIndex].selected()">Other weapon selected</div>
 		</div>
 	</div>
-	<div class="self">
-		<button ng-click="select(1)" class="weapon">Rock</button>
-		<button ng-click="select(2)" class="weapon">Paper</button>
-		<button ng-click="select(3)" class="weapon">Scissor</button>
-		<button ng-if="players[selfIndex].selected()" ng-click="confirm()" class="weapon">Confirm</button>
-	</div>
 	<div class="bottom">
-		<div class="chat">
-			<textarea rows="5" cols="50"></textarea>
+		<div class="chat"> 
+			<ul class="messages">
+				<li ng-repeat="line in messages">{{line.text}}</li>
+			</ul>
+		</div>
+		<div class="chatInputs"> 
+			<input id="m" ng-model="msg" ng-enter="sendMsg(msg)" type="text" name="msg"> 
+			<button ng-click="sendMsg(msg)">Send</button>
 		</div>
 	</div>
 </div>

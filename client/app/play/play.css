@@ -1,54 +1,108 @@
-.playfield {
-	margin:0;
-	padding: 0;
+/* Colors Scheme 
+00CFDE	 Teal Blue
+1CC1F6	 Light Blue
+b0a3ff	 Steel Purple-Blue
+FF5F69	 Tomato red
+D1F486	 Lime green
+FFF985	 Yellow cream
+28CA81	 Teal Green
+34DD91	 Light teal green
+*/
+
+@import url(http://fonts.googleapis.com/css?family=Muli);
+/* CONNECT */
+.connect {
+	font-family: 'Muli', sans-serif;;
+	width: 300px; height: 300px;
+	border: solid 1px #DDD;
+	margin: 0 auto;
+	margin-top: 75px;
 }
-.score {
-	background-color: orange;
-	height: 64px;
-}
-.selfScore, .vs, .otherScore {
-	float: left;
-	margin-right: 64px;
-	margin-top: 16px;
-	height: 48px;
-}
-.selfScore {
-	font-weight: bold;
-}
-.fight {
-	height: 328px;
-}
-.self {
+.connect .upper {
 	background-color: #EEE;
-	height: 128px;
+	border-bottom: solid 1px #DDD;
+	padding: 20px 0 20px 0;
 }
-.bottom {
-	height: 118px;
-	width: 100%;
+.connect h2 { color:#777; margin: 0 auto; width: 150px; }
+.connect input, .connect button {
+	margin: 0 auto;
+	margin-top: 10px;
+	display: block;
 }
+.connect input { outline: none; padding: 6px 39px 6px 9px; }
+.connect button { 
+	border: solid 1px #CCC;
+	background-color: #EEE;
+  padding: 6px 9px 6px 9px;
+}
+.connect button:hover { background-color: #DDD; }
+.connect label { color: #777; float: left; margin: 20px 0px 0px 10px; }
+
+/* PLAY */
+.playfield { margin:0; padding: 0; }
+.score { background-color: #fff; height: 64px; font-family: 'Muli'; }
+.score > * { float: left; height: 64px; border-bottom: solid 1px #FFF; }
+.selfScore, .otherScore { width: 40%; text-align: center; float: left; }
+.selfScore { background-color: #D1F486; font-weight: bold; }
+.vs { width: 20%; font-weight: bold; font-size: 47px; text-align: center; }
+.otherScore	{ background-color: #FF5F69; }
+
+.fight > * { float: left; height: 328px; text-align: center; }
+.selfWeapon, .otherWeapon { width: 40%;  }
+.selfWeapon { background-color: #D1F486; }
+.clashWeapon { width: 20%; font-size: 47px; padding-top: 55px; border-bottom: solid 1px #CCC; }
+.otherWeapon { background-color: #FF5F69; }
+
+.name { padding: 22px 16px 0px 16px; }
+.name, .points { font-size: 16px; float: left; }
+.points {
+	width: 64px;
+	height: 64px;
+	padding: 22px 16px 0px 16px;
+	border-right: solid 1px white;
+	font-weight: bold;
+	font-size: 20px;
+	color: #6A6A6A;
+}
+
+
+/* WEAPONS & BUTTONS */
+button.weapon {
+	outline: none;
+	width: 100px; height: 100px;
+	border-radius: 100%;
+	border: solid 1px #AAA;
+	-webkit-transition: all .3s;
+					transition: all .3s;
+}
+button.weapon.rock 		{ background: #FFF url(/assets/images/rock.png)			no-repeat scroll 18px 17px/64px 64px; }
+button.weapon.paper 	{ background: #FFF url(/assets/images/paper.png) 		no-repeat scroll 17px 20px/64px 64px; }
+button.weapon.scissor { background: #FFF url(/assets/images/scissor.png) 	no-repeat scroll 19px 17px/64px 64px; }
+button.weapon:hover 	{ background-color: #EEE; }	
+
+
+.bottom { width: 100%; padding-left: 20%; height: 118px; margin: 0 auto;}
+.options { float: left; }
+
+/* CHAT */
 .chat {
-	float: left;
+	width: 100%;
+	width: 300px; height: 160px;
+  overflow-y: scroll;
+	overflow-x: hidden;
+	word-wrap: break-word;
+	background-color: black;
+	opacity: 0.6;
 }
-.chat textarea {
+.messages { 
+	list-style-type: none; 
+	margin: 0; padding: 0; 
 	resize: none;
 	outline: none;
-	background-color: black;
-	opacity: 0.3;
 	color: white;
 }
-.options {
-	float: left;
-}
+.messages li { width: 285px; padding: 5px 5px 5px 10px; }
+#m { outline: none; width: 232px; }
+.chatInputs {
 
-button.weapon {
-	outline:none; 
-	background-color: #FFF;
-  height: 100px;
-  width: 100px;
-  border-radius: 100%;
-  border: solid 1px #AAA;
 }
-
-button.weapon:hover {
-	background-color: #EEE
-}	

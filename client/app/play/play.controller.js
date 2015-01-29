@@ -5,8 +5,10 @@ angular.module('rousseauPlatoCiceroApp')
 		$scope.players = [];
 		$scope.inLobby = false;
 		$scope.con = {};
+		$scope.msg = "";
 		$scope.selfIndex = 0;
 		$scope.otherIndex = 0;
+		$scope.messages = [];
 		var winnerIndex = function() {
 			var p1 = $scope.players[0];
 			var p2 = $scope.players[1];
@@ -52,18 +54,27 @@ angular.module('rousseauPlatoCiceroApp')
 				$scope.otherIndex = 0;
 			}
 		};
-		socket.syncPlayers([refresh, connect, connectExisting]);
+		var receiveMessage = function(rep) {
+			$scope.messages.push({ id: $scope.messages.length, text: rep.sender + ": " + rep.msg }); 	
+			// scrollTop not getting aligned properly
+			$(".chat").scrollTop($(".chat")[0].scrollHeight);
+		}
+
+		socket.syncPlayers([refresh, connect, connectExisting, receiveMessage]);
 		$scope.connect = function(info) {
 			socket.io.emit('roomConnect', { name: info.name, lobby: info.lobby });
 			$scope.inLobby = true;
 		};
 		$scope.select = function(weapon) {
-			$scope.players[$scope.selfIndex].select(weapon);
-			socket.io.emit('action', $scope.players[$scope.selfIndex]);
+			if (!$scope.players[$scope.selfIndex].selected()) {
+				$scope.players[$scope.selfIndex].select(weapon);
+				socket.io.emit('action', $scope.players[$scope.selfIndex]);
+			}
 		};
-		$scope.confirm = function() {
-			$scope.players[$scope.selfIndex].confirm(true);
-			socket.io.emit('action', $scope.players[$scope.selfIndex]);
+		$scope.sendMsg = function(message) {
+			socket.io.emit('msg', { sender: $scope.players[$scope.selfIndex].name, msg: message, lobby: $scope.players[$scope.selfIndex].lobby });
+			$scope.msg = "";
+			$('#m').val('');
 		};
 
 		$scope.$on('$destroy', function () {

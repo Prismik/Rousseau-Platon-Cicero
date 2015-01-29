@@ -33,6 +33,12 @@ angular.module('rousseauPlatoCiceroApp')
           callbacks[2](info);
           console.log("Connect existing");
         });
+
+        socket.on('receiveMessage', function(item) {
+        	console.log("Message received");
+        	callbacks[3](item);
+        	console.log("Message received");
+        });
       },
 
       unsyncPlayers : function () {

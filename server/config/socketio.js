@@ -31,6 +31,10 @@ function onConnect(socket, io) {
   socket.on('action', function (item) {
   	io.sockets.in(item.lobby).emit('action', item);
   });
+
+  socket.on('msg', function (item) {
+  	io.sockets.in(item.lobby).emit('receiveMessage', item);
+  })
 }
 
 module.exports = function (socketio) {

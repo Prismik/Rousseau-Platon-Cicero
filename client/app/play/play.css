@@ -23,7 +23,7 @@ FFF985	 Yellow cream
 	border-bottom: solid 1px #DDD;
 	padding: 20px 0 20px 0;
 }
-.connect h2 { color:#777; margin: 0 auto; width: 150px; }
+.connect h2 { color: #777; margin: 0 auto; width: 150px; }
 .connect input, .connect button {
 	margin: 0 auto;
 	margin-top: 10px;
@@ -39,6 +39,7 @@ FFF985	 Yellow cream
 .connect label { color: #777; float: left; margin: 20px 0px 0px 10px; }
 
 /* PLAY */
+/* 1st row */
 .playfield { margin:0; padding: 0; }
 .score { background-color: #fff; height: 64px; font-family: 'Muli'; }
 .score > * { float: left; height: 64px; border-bottom: solid 1px #FFF; }
@@ -46,25 +47,17 @@ FFF985	 Yellow cream
 .selfScore { background-color: #D1F486; font-weight: bold; }
 .vs { width: 20%; font-weight: bold; font-size: 47px; text-align: center; }
 .otherScore	{ background-color: #FF5F69; }
-
+.name, .points { float: left; }
+.name { font-size: 16px; padding: 22px 16px 0px 16px; }
+.points { width: 64px; height: 64px; padding: 22px 16px 0px 16px; border-right: solid 1px white; font: bold 20px 'Muli'; color: #6A6A6A; }
+/* 2nd row */
 .fight > * { float: left; height: 328px; text-align: center; }
-.selfWeapon, .otherWeapon { width: 40%;  }
+.selfWeapon, .otherWeapon { width: 40%; }
 .selfWeapon { background-color: #D1F486; }
 .clashWeapon { width: 20%; font-size: 47px; padding-top: 55px; border-bottom: solid 1px #CCC; }
 .otherWeapon { background-color: #FF5F69; }
-
-.name { padding: 22px 16px 0px 16px; }
-.name, .points { font-size: 16px; float: left; }
-.points {
-	width: 64px;
-	height: 64px;
-	padding: 22px 16px 0px 16px;
-	border-right: solid 1px white;
-	font-weight: bold;
-	font-size: 20px;
-	color: #6A6A6A;
-}
-
+/* 3rd row */
+.bottom { width: 100%; padding-left: 20%; height: 118px; margin: 0 auto;}
 
 /* WEAPONS & BUTTONS */
 button.weapon {
@@ -81,12 +74,9 @@ button.weapon.scissor { background: #FFF url(/assets/images/scissor.png) 	no-rep
 button.weapon:hover 	{ background-color: #EEE; }	
 
 
-.bottom { width: 100%; padding-left: 20%; height: 118px; margin: 0 auto;}
-.options { float: left; }
 
 /* CHAT */
 .chat {
-	width: 100%;
 	width: 300px; height: 160px;
   overflow-y: scroll;
 	overflow-x: hidden;
@@ -102,7 +92,4 @@ button.weapon:hover 	{ background-color: #EEE; }
 	color: white;
 }
 .messages li { width: 285px; padding: 5px 5px 5px 10px; }
-#m { outline: none; width: 232px; }
-.chatInputs {
-
-}
+#m { width: 232px; outline: none; }
